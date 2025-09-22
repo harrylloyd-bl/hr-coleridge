@@ -117,7 +117,7 @@ if __name__ == "__main__":
                         place = extract_attribute_text(line, "place", line_attributes)
                         other_place_attribs = line_attributes["place"]
 
-                    if "person" in line_attributes:  # TODO some people aren't tagged as people, trial a regex for <Title>. <firstinitial>. <surname>, <title>.
+                    if "person" in line_attributes:
                         person = extract_attribute_text(line, "person", line_attributes)
                         entity |= line_attributes["person"]  # Any remaining person attribs
                         entity["person"] = person
@@ -148,6 +148,12 @@ if __name__ == "__main__":
                     if "medical" in line_attributes:
                         entity["medical"] = extract_attribute_text(line, "medical", line_attributes)
 
+                    # if "acknowledgement" in line_attributes:
+                    #     entity["acknowledgement"] = extract_attribute_text(line, "acknowledgement", line_attributes)
+
+                    # if "criticism" in line_attributes:
+                    #     entity["criticism"] = extract_attribute_text(line, "criticism", line_attributes)
+                    
                     if "military_branch" in line_attributes:
                         entity["military_branch"] = extract_attribute_text(line, "military_branch", line_attributes)
 
@@ -185,5 +191,8 @@ if __name__ == "__main__":
             "survey_party", "survey_area", "place", "military_branch", "ethnicity", "ethnicity_text", "dateOfDeath", "medical", "wikiData", "placeName",  "continued"
         ]
     ]
+
+    print(f"{combined_entities.columns.difference(combined_entities_ordered.columns)} not ordered in output")
+
     combined_entities_ordered.to_csv("data/processed/combined_entities.csv", encoding="utf8")
     combined_entities_ordered.groupby(by="report_date").count().apply(lambda x: logging.info(f"{int(x.name)} {x['person']} entities"), axis=1)
