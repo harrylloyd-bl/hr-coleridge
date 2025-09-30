@@ -222,7 +222,8 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
     """
     continued_text = "\n"
     
-    for line in region[line_idx + 1:]:
+    for line in region[line_idx + 1:-1]: # exclude the TextEquiv line
+        breakpoint()
         line_length = len(line[2][0].text)
         inner_found = parse_custom_attribute_string(line)
 
