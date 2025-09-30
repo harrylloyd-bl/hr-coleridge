@@ -143,7 +143,7 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
     Returns:
         str: A concatenated, new line joined string representing all continued text
     """
-    # breakpoint()
+    # breakpoint()    
     offset = int(attr_dict["offset"])
     length = int(attr_dict["length"])
     line_length = len(region[line_idx][2][0].text)
@@ -161,6 +161,11 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
     # we won't be able to separate them
 
     elif "continued" in attr_dict:
+        
+        if line_idx + 1 == len(region):
+            # Last line in a region, this is continued line that has been collected earlier
+            return None
+        
         if offset + length < line_length:
             # This is continued from a previous line
             # will have been picked up by the gather_attribute_text call for that line
@@ -213,17 +218,17 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
     Find text of an attribute continuing from one line to another
 
     Args:
-        region (Element): _description_
-        line_idx (int): _description_
-        attr (str): _description_
+        region (Element): TextRegion, excluding Coords and TextEquiv lines
+        line_idx (int): The current line being parsed in the TextRegion
+        attr (str): Name of the continued tag
 
     Returns:
-        str: The text of the attribute continued on succeeding lines
+        str: The text of the tag continued on succeeding lines
     """
     continued_text = "\n"
     
-    for i, line in enumerate(region[line_idx + 1:-1]): # exclude the TextEquiv line
-        breakpoint()
+    for i, line in enumerate(region[line_idx + 1:]): # Coords/TextEquiv lines are checked for in parse_attributes()
+        # breakpoint()
         line_length = len(line[2][0].text)
         inner_found = parse_custom_attribute_string(line)
 
@@ -239,11 +244,10 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
                 continue
 
             if attr == attr:
-                # breakpoint()
                 attr_text = extract_line_text(line=line, attr=attr, attr_dict=attr_dict[attr])
-                breakpoint()
+                # breakpoint()
                 continued_text += attr_text + "\n"
-                if line_idx + i + 3 == len(region):  # End of a region
+                if line_idx + i + 2 == len(region):  # End of a region
                     return continued_text.rstrip("\n")
                 elif length < line_length:
                     return continued_text.rstrip("\n")

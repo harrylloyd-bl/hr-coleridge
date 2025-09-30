@@ -97,9 +97,6 @@
                     <ns0:Unicode>state.</ns0:Unicode>
                 </ns0:TextEquiv>
             </ns0:TextLine>
-            <ns0:TextEquiv>
-                <ns0:Unicode />
-            </ns0:TextEquiv>
         </ns0:TextRegion>
     </ns0:Page>
 </ns0:PcGts>
