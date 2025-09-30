@@ -18,8 +18,8 @@ def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str
     attributes_raw = element.attrib.get("custom")
     # Handle misformatted Unicode, U+0020 (space), U+0027 (apostrophe)
     attributes = attributes_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
-    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’]+\})")
-    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’]+)")
+    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’-]+\})")
+    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’-]+)")
     all_attribs = attrib_pair_re.findall(attributes)
 
     inner_found = [(k, attrib_inner_re.findall(v[1:-1])) for k,v in all_attribs]
@@ -96,17 +96,25 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
             grouped_tags_to_combine = [x for x in grouping_tags if x in de_duped]
             for t in grouped_tags_to_combine:  # based on overlapping_groups.txt
                 person[t] = gather_attribute_text(region, line_idx, attr=t, attr_dict=unique_attr_dicts[de_duped[t]])
+                person |= unique_attr_dicts[de_duped[t]]
 
             for k, v in de_duped.items():
+                if v not in unique_attr_dicts:
+                    # Part of an overlapping subset of a group that's previously been processed 
+                    break
+
                 if k == "person":
                     continue
                 else:
+                    # breakpoint()
                     del unique_attr_dicts[v]
-            
-            unique_attr_dicts[de_duped["person"]] = person
+            else:
+                unique_attr_dicts[de_duped["person"]] = person
         
-        elif "member" in de_duped:  # There are only member/ethnicity overlaps as per overlapping_groups.txt
-            if "ethnicity" in de_duped:
+        elif "member" in de_duped and "member" in unique_attr_dicts:  
+            # Check that member is still in unique_attr_dicts and hasn't covertly been deleted by an partially overlapping person
+            # There are only member/ethnicity overlaps as per overlapping_groups.txt
+            if "ethnicity" in de_duped :
                 unique_attr_dicts[de_duped["member"]]["ethnicity"] = "Native"
                 del unique_attr_dicts[de_duped["ethnicity"]]
 
@@ -284,7 +292,5 @@ def strip_debug_log(filepath):
 
 
 if __name__ == "__main__":
-    attr_str = "readingOrder {index:28;} acknowledgement {offset:0; length:11; continued:true;} person {offset:20; length:6;title:Mr; lastname:Baness;} person {offset:28; length:5;title:Mr; lastname:Horst;} person {offset:38; length:5;title:Mr; lastname:Bolst;} acknowledgement {offset:48; length:11; continued:true;}"
-    parse_attributes(attr_str)
-
+    pass
 

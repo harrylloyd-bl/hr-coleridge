@@ -83,6 +83,13 @@
                     <ns0:Unicode>of the area performed last season, working South in Scindhia’s Territory, and West in Kerowlee</ns0:Unicode>
                 </ns0:TextEquiv>
             </ns0:TextLine>
+            <ns0:TextLine id="tr_1_tl_17" custom="readingOrder {index:14;} role {offset:2; length:10;title:Native\u0020Surveyor;} person {offset:12; length:10;lastname:Ramloosain;} ethnicity {offset:12; length:10;} person {offset:24; length:12;lastname:Gour\u0020Chundra;} ethnicity {offset:24; length:12;} person {offset:38; length:12;lastname:Moung-gyweng;} ethnicity {offset:38; length:12;} person {offset:52; length:10;lastname:Shuay-leng;} ethnicity {offset:52; length:10;} person {offset:64; length:7;lastname:Kyanzan;} ethnicity {offset:64; length:7;}">
+                <ns0:Coords points="451,1205 2109,1212 2078,1168 451,1176" />
+                <ns0:Baseline points="462,1197 544,1205 627,1206 709,1206 792,1209 874,1209 957,1209 1039,1209 1122,1209 1204,1209 1287,1209 1370,1208 1452,1206 1535,1206 1617,1206 1700,1206 1782,1206 1865,1206 1947,1206 2030,1206 2113,1206" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>“ Surveyors Ramloosain, Gour Chundra, Moung-gyweng, Shuay-leng, Kyanzan to com¬</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
             <ns0:TextLine id="r_tl_52" custom="readingOrder {index:48;} medical {offset:4; length:88; continued:true;}">
                 <ns0:Coords points="372,3213 2000,3252 2096,3248 2096,3198 370,3176" />
                 <ns0:Baseline points="382,3203 426,3206 471,3206 516,3203 561,3203 606,3203 650,3206 695,3206 740,3209 785,3209 829,3212 874,3212 919,3212 964,3212 1009,3212 1053,3212 1098,3215 1143,3215 1188,3215 1233,3215 1277,3215 1322,3215 1367,3218 1412,3218 1456,3218 1501,3218 1546,3221 1591,3221 1636,3221 1680,3224 1725,3224 1770,3227 1815,3227 1859,3227 1904,3227 1949,3230 1994,3230 2039,3233 2083,3236 2101,3236" />

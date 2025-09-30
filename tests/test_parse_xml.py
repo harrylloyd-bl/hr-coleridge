@@ -113,14 +113,14 @@ def test_multiple_person_combining(root):
 
 def test_multiple_person_combining_succeeding_line(root):
     basic_region = root[1][1]
-    multiple_person_combining_idx = 9
-    assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {}
+    idx = 9
+    assert parse_attributes(basic_region, line_idx=idx) == {}
 
 
 def test_generic_multiple(root):
     basic_region = root[1][1]
-    multiple_person_combining_idx = 10
-    assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {
+    idx = 10
+    assert parse_attributes(basic_region, line_idx=idx) == {
         "place0": {
             "text": "Scindhia’s Territory",
             "placeName": "Scindhia’s Territory"
@@ -132,10 +132,44 @@ def test_generic_multiple(root):
     }
 
 
+def test_subset_overlap(root):
+    basic_region = root[1][1]
+    idx = 11
+    assert parse_attributes(basic_region, line_idx=idx) == {
+        "person0": {
+            "text": "Ramloosain",
+            "lastname": "Ramloosain",
+            "role": "Surveyors\xa0",
+            "title": "Native Surveyor",
+            "ethnicity": "Native"
+        },
+        "person1": {
+            "text": "Gour Chundra",
+            "lastname": "Gour Chundra",
+            "ethnicity": "Native"
+        },
+        "person2": {
+            "text": "Moung-gyweng",
+            "lastname": "Moung-gyweng",
+            "ethnicity": "Native"
+        },
+        "person3": {
+            "text": "Shuay-leng",
+            "lastname": "Shuay-leng",
+            "ethnicity": "Native"
+        },
+        "person4": {
+            "text": "Kyanzan",
+            "lastname": "Kyanzan",
+            "ethnicity": "Native"
+        }
+    }
+
+
 def test_penultimate_textline_continue(root):
     basic_region = root[1][1]
-    multiple_person_combining_idx = 11
-    assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {
+    idx = 12
+    assert parse_attributes(basic_region, line_idx=idx) == {
         "medical": {
             "continued": "true",
             "text": "he suffered so much from the exposure, that ever since his health has been in a very bad\nstate."
@@ -145,5 +179,5 @@ def test_penultimate_textline_continue(root):
 
 def test_final_textline_continue(root):
     basic_region = root[1][1]
-    multiple_person_combining_idx = 12
-    assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {}
+    idx = 13
+    assert parse_attributes(basic_region, line_idx=idx) == {}
