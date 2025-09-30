@@ -83,6 +83,20 @@
                     <ns0:Unicode>of the area performed last season, working South in Scindhia’s Territory, and West in Kerowlee</ns0:Unicode>
                 </ns0:TextEquiv>
             </ns0:TextLine>
+            <ns0:TextLine id="r_tl_52" custom="readingOrder {index:48;} medical {offset:4; length:88; continued:true;}">
+                <ns0:Coords points="372,3213 2000,3252 2096,3248 2096,3198 370,3176" />
+                <ns0:Baseline points="382,3203 426,3206 471,3206 516,3203 561,3203 606,3203 650,3206 695,3206 740,3209 785,3209 829,3212 874,3212 919,3212 964,3212 1009,3212 1053,3212 1098,3215 1143,3215 1188,3215 1233,3215 1277,3215 1322,3215 1367,3218 1412,3218 1456,3218 1501,3218 1546,3221 1591,3221 1636,3221 1680,3224 1725,3224 1770,3227 1815,3227 1859,3227 1904,3227 1949,3230 1994,3230 2039,3233 2083,3236 2101,3236" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>and he suffered so much from the exposure, that ever since his health has been in a very bad</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_53" custom="readingOrder {index:49;} medical {offset:0; length:6; continued:true;}">
+                <ns0:Coords points="366,3265 390,3276 439,3276 457,3269 476,3271 481,3232 470,3230 457,3235 442,3222 420,3237 405,3228 392,3239 368,3237" />
+                <ns0:Baseline points="379,3263 394,3263 438,3260 483,3257" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>state.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
             <ns0:TextEquiv>
                 <ns0:Unicode />
             </ns0:TextEquiv>

@@ -130,3 +130,14 @@ def test_generic_multiple(root):
             "placeName": "Kerowlee"
         }
     }
+
+
+def test_end_of_region_continue(root):
+    basic_region = root[1][1]
+    multiple_person_combining_idx = 11
+    assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {
+        "medical": {
+            "continued": "true",
+            "text": "he suffered so much from the exposure, that ever since his health has been in a very bad\nstate."
+        }
+    }

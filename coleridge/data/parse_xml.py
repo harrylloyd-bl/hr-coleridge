@@ -222,7 +222,7 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
     """
     continued_text = "\n"
     
-    for line in region[line_idx + 1:-1]: # exclude the TextEquiv line
+    for i, line in enumerate(region[line_idx + 1:-1]): # exclude the TextEquiv line
         breakpoint()
         line_length = len(line[2][0].text)
         inner_found = parse_custom_attribute_string(line)
@@ -241,8 +241,11 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
             if attr == attr:
                 # breakpoint()
                 attr_text = extract_line_text(line=line, attr=attr, attr_dict=attr_dict[attr])
+                breakpoint()
                 continued_text += attr_text + "\n"
-                if length < line_length:
+                if line_idx + i + 3 == len(region):  # End of a region
+                    return continued_text.rstrip("\n")
+                elif length < line_length:
                     return continued_text.rstrip("\n")
                 break
         else:
