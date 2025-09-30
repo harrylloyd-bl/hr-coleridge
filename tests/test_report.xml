@@ -1,0 +1,91 @@
+<ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+    <ns0:Metadata>
+        <ns0:Creator>prov=READ-COOP:name=PyLaia@TranskribusPlatform:version=2.30.2:model_id=39995:lm=none:date=27_08_2025_10:37</ns0:Creator>
+        <ns0:Created>2025-05-14T08:40:15.926+02:00</ns0:Created>
+        <ns0:LastChange>2025-08-28T15:32:36.184+02:00</ns0:LastChange>
+        <ns0:TranskribusMetadata docId="8473533" pageId="96872747" pageNr="1" tsid="254381456" status="IN_PROGRESS" userId="311446" imgUrl="https://files.transkribus.eu/Get?id=UPQZNZEIYMGOHUPEWBGGUNTA&amp;fileType=view" xmlUrl="https://files.transkribus.eu/Get?id=HOFVMBHFUBACLXDITHHBWNUI" imageId="81154982" />
+    </ns0:Metadata>
+    <ns0:Page imageFilename="0001_p001.jpg" imageWidth="2479" imageHeight="3508">
+        <ns0:ReadingOrder>
+            <ns0:OrderedGroup id="ro_1757512404909" caption="Regions reading order">
+                <ns0:RegionRefIndexed index="0" regionRef="r" />
+            </ns0:OrderedGroup>
+        </ns0:ReadingOrder>
+        <ns0:TextRegion id="r_7" custom="readingOrder {index:7;}">
+            <ns0:Coords points="232,2628 2133,2628 2133,3404 232,3404" />
+            <ns0:TextLine id="r_tl_66" custom="readingOrder {index:2;}">
+                <ns0:Coords points="522,2908 2079,2923 2079,2866 1648,2846 1573,2877 522,2857" />
+                <ns0:Baseline points="534,2895 579,2895 623,2895 668,2892 713,2895 758,2895 803,2895 847,2898 892,2895 937,2898 982,2898 1027,2898 1071,2898 1116,2895 1161,2898 1206,2898 1250,2895 1295,2898 1340,2898 1385,2895 1430,2898 1474,2898 1519,2895 1564,2898 1609,2898 1653,2898 1698,2898 1743,2898 1788,2898 1833,2898 1877,2901 1922,2901 1967,2901 2012,2904 2057,2907 2086,2907" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>No. 1.—Chart of Triangulation, showing the Principal, Secondary and Minor Stations</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_70" custom="readingOrder {index:6;} map {offset:0; length:72; continued:true;title:Degree\u0020Sheet\u0020No.\u00201.; scale:1\u0020inch\u0020to\u00201\u0020mile;}">
+                <ns0:Coords points="519,3199 2075,3212 2075,3158 1882,3149 519,3155" />
+                <ns0:Baseline points="531,3185 576,3188 620,3185 665,3182 710,3188 755,3188 800,3185 844,3188 889,3188 934,3188 979,3188 1024,3188 1068,3191 1113,3191 1158,3188 1203,3188 1247,3188 1292,3191 1337,3188 1382,3191 1427,3191 1471,3191 1516,3191 1561,3191 1606,3191 1650,3191 1695,3191 1740,3194 1785,3194 1830,3194 1874,3197 1919,3197 1964,3197 2009,3200 2054,3200 2080,3197" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Degree Sheet No. 1.—Parts of Gwalior, Dholpore and Dattiah States. Scale</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_71" custom="readingOrder {index:7;} map {offset:0; length:14; continued:true;title:Degree\u0020Sheet\u0020No.\u00201.; scale:1\u0020inch\u0020to\u00201\u0020mile;}">
+                <ns0:Coords points="322,3261 375,3272 408,3256 447,3274 469,3254 565,3261 581,3247 776,3261 776,3226 745,3208 719,3226 701,3208 578,3226 528,3201 419,3221 399,3239 353,3226 324,3241" />
+                <ns0:Baseline points="334,3260 379,3260 423,3257 468,3248 513,3248 558,3248 603,3245 647,3245 692,3245 737,3245 782,3248" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>mile = 1 inch.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_18" custom="readingOrder {index:14;} map {offset:78; length:15; continued:true;title:Sheet\u0020No.\u002050\u0020of\u0020the\u0020Indian\u0020Atlas;}">
+                <ns0:Coords points="352,1114 2088,1117 2088,1069 2036,1060 352,1073" />
+                <ns0:Baseline points="364,1104 391,1107 435,1104 480,1107 525,1107 570,1107 615,1107 659,1107 704,1107 749,1107 794,1110 838,1110 883,1107 928,1113 973,1110 1018,1110 1062,1110 1107,1110 1152,1110 1197,1107 1241,1110 1286,1107 1331,1107 1376,1110 1421,1107 1465,1110 1510,1107 1555,1107 1600,1107 1645,1107 1689,1107 1734,1107 1779,1104 1824,1104 1868,1104 1913,1104 1958,1101 2003,1104 2048,1101 2092,1101" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>the British Districts of the Delhi Division, and it provides for the whole of Sheet No. 50 of</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_19" custom="readingOrder {index:15;} map {offset:0; length:16; continued:true;title:Sheet\u0020No.\u002050\u0020of\u0020the\u0020Indian\u0020Atlas;} map {offset:48; length:12;title:Sheet\u0020No.\u002051\u0020of\u0020the\u0020Indian\u0020Atlas;}">
+                <ns0:Coords points="354,1171 1471,1173 1471,1128 354,1123" />
+                <ns0:Baseline points="367,1161 412,1164 456,1164 501,1164 546,1164 591,1164 635,1167 680,1167 725,1167 770,1167 815,1167 859,1167 904,1167 949,1167 994,1167 1038,1167 1083,1167 1128,1167 1173,1167 1218,1167 1262,1167 1307,1164 1352,1167 1397,1167 1442,1167 1477,1164" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>the Indian Atlas, and a considerable portion of Sheet No. 51.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_32" custom="readingOrder {index:26;} person {offset:23; length:22;firstname:A.\u0020B.; title:Captain; lastname:Melville;} Role {offset:47; length:18;title:Assistant\u0020Surveyor;} survey_area {offset:75; length:7; continued:true;}">
+                <ns0:Coords points="358,1881 2090,1881 2090,1836 2010,1827 358,1840" />
+                <ns0:Baseline points="370,1868 414,1868 459,1868 504,1868 549,1868 594,1868 638,1868 683,1868 728,1868 773,1871 818,1871 862,1871 907,1871 952,1874 997,1877 1041,1877 1086,1874 1131,1877 1176,1877 1221,1877 1265,1877 1310,1877 1355,1877 1400,1877 1444,1877 1489,1877 1534,1877 1579,1877 1624,1874 1668,1874 1713,1874 1758,1874 1803,1877 1848,1877 1892,1874 1937,1874 1982,1874 2027,1874 2071,1874 2095,1874" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>undertake new Surveys. Captain A. B. Melville, Assistant Surveyor with the Kashmir</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_33" custom="readingOrder {index:27;} survey_area {offset:0; length:6; continued:true;} person {offset:47; length:27;title:Lieutenant\u0020Colonel; lastname:Robinson;}">
+                <ns0:Coords points="358,1940 2090,1940 2090,1894 358,1890" />
+                <ns0:Baseline points="370,1925 414,1922 459,1928 504,1928 549,1928 594,1925 638,1928 683,1928 728,1928 773,1928 818,1928 862,1928 907,1931 952,1928 997,1931 1041,1931 1086,1934 1131,1934 1176,1934 1221,1934 1265,1934 1310,1937 1355,1934 1400,1934 1444,1934 1489,1934 1534,1934 1579,1934 1624,1934 1668,1934 1713,1934 1758,1931 1803,1934 1848,1934 1892,1934 1937,1934 1982,1931 2027,1931 2071,1931 2095,1934" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Survey, has been appointed to officiate during Lieutenant Colonel Robinson’s absence, and</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+                        <ns0:TextLine id="r_3_tl_22" custom="readingOrder {index:20;} Role {offset:0; length:16;title:Native\u0020Surveyors;} ethnicity {offset:0; length:6;} person {offset:18; length:8;lastname:Prem\u0020Raj;} member {offset:18; length:8;} ethnicity {offset:18; length:8;} person {offset:28; length:3; continued:true;lastname:Ali\u0020Ahmed;} member {offset:28; length:3; continued:true;} ethnicity {offset:28; length:3; continued:true;}">
+                <ns0:Coords points="393,2079 525,2074 621,2103 698,2083 939,2092 939,2044 882,2061 856,2046 795,2061 393,2052" />
+                <ns0:Baseline points="406,2077 450,2074 495,2071 540,2074 585,2071 629,2074 674,2074 719,2074 764,2077 809,2077 853,2077 898,2080 943,2077 946,2077" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Native Surveyors, Prem Raj, Ali</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_3_tl_23" custom="readingOrder {index:21;} person {offset:0; length:5; continued:true;lastname:Ali\u0020Ahmed;} member {offset:0; length:5; continued:true;} ethnicity {offset:0; length:5; continued:true;}">
+                <ns0:Coords points="371,2118 413,2120 435,2116 443,2123 454,2123 459,2118 481,2118 481,2083 426,2092 413,2081 399,2083 395,2079 391,2083 382,2074 371,2074" />
+                <ns0:Baseline points="382,2107 426,2107 471,2110 486,2107" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Ahmed</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_tl_21" custom="readingOrder {index:17;} place {offset:52; length:20;placeName:Scindhia’s\u0020Territory;} place {offset:86; length:8;placeName:Kerowlee;}">
+                <ns0:Coords points="350,1323 2090,1325 2055,1273 350,1290" />
+                <ns0:Baseline points="361,1316 406,1316 450,1316 495,1316 540,1316 585,1319 629,1316 674,1319 719,1319 764,1319 809,1319 853,1319 898,1319 943,1319 988,1319 1032,1319 1077,1319 1122,1319 1167,1319 1212,1322 1256,1322 1301,1319 1346,1319 1391,1319 1436,1322 1480,1322 1525,1319 1570,1319 1615,1319 1659,1319 1704,1319 1749,1316 1794,1316 1839,1316 1883,1316 1928,1316 1973,1313 2018,1316 2063,1316 2095,1316" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>of the area performed last season, working South in Scindhia’s Territory, and West in Kerowlee</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextEquiv>
+                <ns0:Unicode />
+            </ns0:TextEquiv>
+        </ns0:TextRegion>
+    </ns0:Page>
+</ns0:PcGts>

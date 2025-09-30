@@ -2,7 +2,7 @@ from collections import Counter
 import glob
 import xml.etree.ElementTree as ET
 
-from coleridge.data.parse_xml import parse_attribute_string
+from coleridge.data.parse_xml import parse_custom_attribute_string
 
 ns = {
     "page": "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15",
@@ -24,7 +24,7 @@ if __name__ == "__main__":
             text_regions = [tr for tr in root.iter(f"{{{ns['page']}}}TextRegion")]
             for i, region in enumerate(text_regions):
                 for line in region[1:-1]:
-                    line_tags = parse_attribute_string(line)
+                    line_tags = parse_custom_attribute_string(line)
                     if line_tags:
                         tags.extend([t[0] for t in line_tags])
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             for i, region in enumerate(text_regions):
 
                 for line in region[1:-1]:
-                    line_tags = parse_attribute_string(line)
+                    line_tags = parse_custom_attribute_string(line)
                     if line_tags:
                         [tag_attributes[tag].extend([a[0] for a in attrs]) for (tag, attrs) in line_tags]
         
