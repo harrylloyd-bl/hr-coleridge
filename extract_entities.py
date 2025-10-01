@@ -78,8 +78,8 @@ if __name__ == "__main__":
                     if line[2][0].text is None:
                         continue
                     line_attributes = parse_attributes(line.attrib.get("custom", []))
-                    print(line_attributes)
-                    print(line[2][0].text)
+                    # print(line_attributes)
+                    # print(line[2][0].text)
                     if "survey_party" in line_attributes:
                         survey_party_lines.append(extract_attribute_text(line, "survey_party", line_attributes)) 
                     if "survey_area" in line_attributes:
@@ -105,8 +105,8 @@ if __name__ == "__main__":
                 for j, line in enumerate(region[1:-1]):  # TODO add 'continued logic'
                     entity = {}
                     line_attributes = parse_attributes(line.attrib.get("custom", []))
-                    print(line_attributes)
-                    print(line[2][0].text)
+                    # print(line_attributes)
+                    # print(line[2][0].text)
                     if "survey_party" in line_attributes:
                         survey_party = extract_attribute_text(line, "survey_party", line_attributes)
 
@@ -117,7 +117,7 @@ if __name__ == "__main__":
                         place = extract_attribute_text(line, "place", line_attributes)
                         other_place_attribs = line_attributes["place"]
 
-                    if "person" in line_attributes:  # TODO some people aren't tagged as people, trial a regex for <Title>. <firstinitial>. <surname>, <title>.
+                    if "person" in line_attributes:
                         person = extract_attribute_text(line, "person", line_attributes)
                         entity |= line_attributes["person"]  # Any remaining person attribs
                         entity["person"] = person
@@ -148,6 +148,12 @@ if __name__ == "__main__":
                     if "medical" in line_attributes:
                         entity["medical"] = extract_attribute_text(line, "medical", line_attributes)
 
+                    # if "acknowledgement" in line_attributes:
+                    #     entity["acknowledgement"] = extract_attribute_text(line, "acknowledgement", line_attributes)
+
+                    # if "criticism" in line_attributes:
+                    #     entity["criticism"] = extract_attribute_text(line, "criticism", line_attributes)
+                    
                     if "military_branch" in line_attributes:
                         entity["military_branch"] = extract_attribute_text(line, "military_branch", line_attributes)
 
@@ -173,9 +179,9 @@ if __name__ == "__main__":
             continue
 
         entity_df = pd.DataFrame(entities)
-        entity_df.info()
+        # entity_df.info()
 
-        print(entity_df.head())
+        # print(entity_df.head())
         entity_dfs.append(entity_df)
     
     combined_entities = pd.concat(entity_dfs)
@@ -185,5 +191,20 @@ if __name__ == "__main__":
             "survey_party", "survey_area", "place", "military_branch", "ethnicity", "ethnicity_text", "dateOfDeath", "medical", "wikiData", "placeName",  "continued"
         ]
     ]
+    
+    missing_cols = combined_entities.columns.difference(combined_entities_ordered.columns)
+
+    if not missing_cols.empty:
+        print(f"{missing_cols} not ordered in output")
+
+    # Handle misformatted Unicode, U+0020 (space), U+0027 (apostrophe)
+    combined_entities_ordered["title"] = combined_entities_ordered["title"].str.replace(r"\u0020", " ")
+    combined_entities_ordered["firstname"] = combined_entities_ordered["firstname"].str.replace(r"\u0020", " ")
+    combined_entities_ordered["firstname"] = combined_entities_ordered["firstname"].str.replace(r"\u0027", "'")
+    combined_entities_ordered["lastname"] = combined_entities_ordered["lastname"].str.replace(r"\u0020", " ")
+    combined_entities_ordered["lastname"] = combined_entities_ordered["lastname"].str.replace(r"\u0027", "'")
+    combined_entities_ordered["heading_placeName"] = combined_entities_ordered["heading_placeName"].str.replace(r"\u0020", " ")
+    combined_entities_ordered["placeName"] = combined_entities_ordered["placeName"].str.replace(r"\u0020", " ")
+
     combined_entities_ordered.to_csv("data/processed/combined_entities.csv", encoding="utf8")
     combined_entities_ordered.groupby(by="report_date").count().apply(lambda x: logging.info(f"{int(x.name)} {x['person']} entities"), axis=1)
