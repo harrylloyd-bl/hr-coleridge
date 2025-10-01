@@ -95,6 +95,9 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
 
             grouped_tags_to_combine = [x for x in grouping_tags if x in de_duped]
             for t in grouped_tags_to_combine:  # based on overlapping_groups.txt
+                if de_duped[t] not in unique_attr_dicts:
+                    # Part of an overlapping subset of a group that's previously been processed 
+                    break
                 person[t] = gather_attribute_text(region, line_idx, attr=t, attr_dict=unique_attr_dicts[de_duped[t]])
                 person |= unique_attr_dicts[de_duped[t]]
 
