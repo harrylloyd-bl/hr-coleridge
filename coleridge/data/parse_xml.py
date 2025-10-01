@@ -123,14 +123,14 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
     for attr, attr_dict in unique_attr_dicts.items():
         if attr == "readingOrder":
             continue
-
+        
         if "offset" in attr_dict:
             attr_text = gather_attribute_text(region=region, line_idx=line_idx, attr=attr, attr_dict=attr_dict)
             # breakpoint()
             if attr_text is None:  # This was text continued from a previous line
                 continue            
         
-        attr_dict["text"] = attr_text
+            attr_dict["text"] = attr_text
         output_dict = {attr:attr_dict}
         formatted_attributes |= output_dict
     
