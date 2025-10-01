@@ -166,9 +166,22 @@ def test_subset_overlap(root):
     }
 
 
-def test_penultimate_textline_continue(root):
+def test_extended_map_continue(root):
     basic_region = root[1][1]
     idx = 12
+    assert parse_attributes(basic_region, line_idx=idx) == {
+        "map": {
+            "continued": "true",
+            "text": "maps\nof Teiks have been made on the scale of 4 inches to the\nmile",
+            "title": "Maps of Circles",
+            "scale": "one inch scale"
+        }
+    }
+
+
+def test_penultimate_textline_continue(root):
+    basic_region = root[1][1]
+    idx = len(basic_region) - 2
     assert parse_attributes(basic_region, line_idx=idx) == {
         "medical": {
             "continued": "true",
@@ -179,5 +192,5 @@ def test_penultimate_textline_continue(root):
 
 def test_final_textline_continue(root):
     basic_region = root[1][1]
-    idx = 13
+    idx = len(basic_region) - 1
     assert parse_attributes(basic_region, line_idx=idx) == {}
