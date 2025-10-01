@@ -237,6 +237,9 @@ def find_continued_text(region: Element, line_idx: int, attr: str) -> str:
     
     for i, line in enumerate(region[line_idx + 1:]): # Coords/TextEquiv lines are checked for in parse_attributes()
         # breakpoint()
+        if line[2][0].text is None:
+            return ""
+        
         line_length = len(line[2][0].text)
         inner_found = parse_custom_attribute_string(line)
 
