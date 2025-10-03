@@ -4,7 +4,7 @@ import re
 from xml.etree.ElementTree import Element
 
 
-def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str, str]]]:
+def parse_custom_attribute_string(element: Element, normalise_role: bool = True) -> list[tuple[str, tuple[str, str]]]:
     """
     Parse the custom attributes of an XML element
     Convert the custom string into a list of (Transkribus) tags and tag values
@@ -18,16 +18,17 @@ def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str
     attributes_raw = element.attrib.get("custom")
     # Handle misformatted Unicode, U+0020 (space), U+0027 (apostrophe)
     attributes = attributes_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
+    if " Role " in attributes and normalise_role:  # There are upper and lower cased R/role tags
+        attributes = attributes.replace(" Role ", " role ")
     attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’-]+\})")
     attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’-]+)")
     all_attribs = attrib_pair_re.findall(attributes)
 
     inner_found = [(k, attrib_inner_re.findall(v[1:-1])) for k,v in all_attribs]
-    # breakpoint()
     return inner_found
 
 
-def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[str, str]|list[dict[str, str]]]:
+def parse_attributes(region: Element, line_idx: int = None, normalise_role: bool = True) -> dict[str, dict[str, str]|list[dict[str, str]]]:
     """
     Parse a string of attributes from an xml
 
@@ -47,11 +48,11 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
     element = region[line_idx]
 
     if "Coord" in element.tag or "TextEquiv" in element.tag:
-        raise ValueError(f"Only TextLines should be passed to parse_attributes, f{element.tag.split("}")[1]} was passed")
+        raise ValueError(f"Only TextLines should be passed to parse_attributes, {element.tag.split("}")[1]} was passed")
     elif element[2][0].text is None:
         return dict()  # No text
     
-    inner_found = parse_custom_attribute_string(element)
+    inner_found = parse_custom_attribute_string(element, normalise_role=normalise_role)
     
     formatted_attributes = {}
     counts = Counter([x[0] for x in inner_found])  # TODO implement checking for multiple attrs in one line
@@ -76,7 +77,7 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
             grouped_sets[slice(min(span1), max(span1))].extend([tag1, tag2])
 
     grouped_sets = {k:list(set(v)) for k,v in grouped_sets.items() if v}
-    grouping_tags = ["medical", "acknowledgement", "criticism", "role", "Role"]
+    grouping_tags = ["medical", "acknowledgement", "criticism", "role"]
 
     for gs in grouped_sets.values():
         de_duped = {de_dupe(tag):tag for tag in gs}  # this won't work for overlaps with multiple of the same tag
@@ -172,7 +173,7 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
     # we won't be able to separate them
 
     elif "continued" in attr_dict:
-        
+
         if line_idx + 1 == len(region):
             # Last line in a region, this is continued line that has been collected earlier
             return None
@@ -190,7 +191,7 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
             prev_line_attrs_raw = region[line_idx - 1].attrib.get("custom")
             prev_line_attrs = prev_line_attrs_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
             
-            common_overlap_keys = ["continued", "scale", "member", "leader", "ethnicity"]  # tag attributes that are likely to be the same as the prev line by chance
+            common_overlap_keys = ["continued", "scale", "member", "leader", "ethnicity", "title", "seniority"]  # tag attributes that are likely to be the same as the prev line by chance
             # breakpoint()
             if any(v in prev_line_attrs for k, v in attr_dict.items() if k not in common_overlap_keys):
                 # Attrs in this line appear verbatim in the last line, so is continued
