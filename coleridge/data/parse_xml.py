@@ -191,7 +191,9 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
             prev_line_attrs_raw = region[line_idx - 1].attrib.get("custom")
             prev_line_attrs = prev_line_attrs_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
             
-            common_overlap_keys = ["continued", "scale", "member", "leader", "ethnicity", "title", "seniority"]  # tag attributes that are likely to be the same as the prev line by chance
+            common_overlap_keys = ["continued", "scale", "member", "leader", "ethnicity"]  # tag attributes that are likely to be the same as the prev line by chance
+            if attr == "role":
+                common_overlap_keys += ["title", "seniority"]
             # breakpoint()
             if any(v in prev_line_attrs for k, v in attr_dict.items() if k not in common_overlap_keys):
                 # Attrs in this line appear verbatim in the last line, so is continued

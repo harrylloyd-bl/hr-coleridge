@@ -5,7 +5,7 @@ from coleridge.data.parse_xml import parse_attributes
 
 @pytest.fixture
 def root():
-    tree = ET.parse("tests/test_report.xml")
+    tree = ET.parse("tests/test_parse_attributes.xml")
     root = tree.getroot()
     return root
 
@@ -63,7 +63,7 @@ def test_generic_continued(root):
             "title": "Captain",
             "lastname": "Melville"
         },
-        "Role": {
+        "role": {
             "text": "Assistant Surveyor",
             "title": "Assistant Surveyor"
         },
@@ -88,7 +88,7 @@ def test_multiple_person_combining(root):
     basic_region = root[1][1]
     multiple_person_combining_idx = 8
     assert parse_attributes(basic_region, line_idx=multiple_person_combining_idx) == {
-        "Role": {
+        "role": {
             "text": "Native Surveyors",
             "title": "Native Surveyors"
         },
