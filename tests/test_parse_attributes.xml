@@ -118,6 +118,13 @@
                     <ns0:Unicode>scale, which again are reduced into the general map on the</ns0:Unicode>
                 </ns0:TextEquiv>
             </ns0:TextLine>
+            <ns0:TextLine id="r_3_tl_4" custom="readingOrder {index:1;} person {offset:0; length:17;firstname:J.; title:Esquire; dateOfDeath:25/03/1869; lastname:Mulheran'’-;} leader {offset:0; length:16;} Role {offset:19; length:23;title:Deputy\u0020Superintendent; seniority:2nd\u0020grade;}">
+                <ns0:Coords points="414,1618 1087,1629 1087,1576 917,1595 467,1576 414,1595" />
+                <ns0:Baseline points="426,1615 465,1615 510,1612 555,1612 600,1612 644,1615 689,1615 734,1612 779,1615 824,1612 868,1615 913,1615 958,1615 1003,1612 1047,1615 1092,1612" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>J. Mulheran, Esq., Depy. Supdt., 2nd grade,</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
             <ns0:TextLine id="r_tl_52" custom="readingOrder {index:48;} medical {offset:4; length:88; continued:true;}">
                 <ns0:Coords points="372,3213 2000,3252 2096,3248 2096,3198 370,3176" />
                 <ns0:Baseline points="382,3203 426,3206 471,3206 516,3203 561,3203 606,3203 650,3206 695,3206 740,3209 785,3209 829,3212 874,3212 919,3212 964,3212 1009,3212 1053,3212 1098,3215 1143,3215 1188,3215 1233,3215 1277,3215 1322,3215 1367,3218 1412,3218 1456,3218 1501,3218 1546,3221 1591,3221 1636,3221 1680,3224 1725,3224 1770,3227 1815,3227 1859,3227 1904,3227 1949,3230 1994,3230 2039,3233 2083,3236 2101,3236" />

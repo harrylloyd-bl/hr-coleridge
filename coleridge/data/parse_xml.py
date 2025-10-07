@@ -20,11 +20,12 @@ def parse_custom_attribute_string(element: Element, normalise_role: bool = True)
     attributes = attributes_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
     if " Role " in attributes and normalise_role:  # There are upper and lower cased R/role tags
         attributes = attributes.replace(" Role ", " role ")
-    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’-]+\})")
-    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’-]+)")
+    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’\-/]+\})")
+    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’\-/]+)")
     all_attribs = attrib_pair_re.findall(attributes)
 
     inner_found = [(k, attrib_inner_re.findall(v[1:-1])) for k,v in all_attribs]
+    # breakpoint()
     return inner_found
 
 
@@ -290,6 +291,56 @@ def de_dupe(s: str) -> str:
     except ValueError:
         return s
 
+
+def extract_entities(attribs, heading_attribs=dict()):
+    """
+    Extract person entities from a list of tags derived from line attributes
+
+    Args:
+        attribs (dict): A dictionary of tags and tag values
+        heading_attribs (dict, optional): A dictionary of tags extracted from the heading region associated with the line attribs came from. Defaults to dict().
+
+    Returns:
+        dict|list: Either a dictionary corresponding to an entity, or a list of multiple entity tags that occur on a line
+    """
+    single_attrs = [a for a in attribs if de_dupe(a) == a]
+    multi_attrs = [a for a in attribs if de_dupe(a) != a]
+    de_dupe_multi = [de_dupe(a) for a in multi_attrs]
+    if any(x in single_attrs for x in ["person", "member"]):
+        if "person" in single_attrs:
+            entity = {"person": attribs["person"].pop("text")}
+            entity |= attribs["person"]
+            single_attrs.remove("person")
+        elif "member" in single_attrs:
+            entity = {"person": attribs["member"]["text"]}
+            entity["leader"] = False
+            single_attrs.remove("member")
+        # There are no valid leader entities with just a leader tag
+        # elif "leader" in single_attrs:
+        #     entity = {"person": attribs["leader"]["text"]}
+        #     entity["leader"] = "leader_only"
+        #     single_attrs.remove("leader")
+
+        # breakpoint()
+        for attr in single_attrs:
+            if attr == "ethnicity" or attr == "ethnicity_group":
+                entity["ethnicity"] = "Native"
+                entity[f"{attr}_text"] = attribs[attr]["text"]
+            elif attr == "member":
+                entity["leader"] = False
+            elif attr == "leader":
+                entity["leader"] = True
+            else:
+                for k, v in attribs[attr].items():
+                    entity[f"{attr.lower()}_{k}"] = v
+        
+        entity |= heading_attribs
+        return entity
+    elif any(x in de_dupe_multi for x in ["person", "member", "leader"]):
+        return multi_attrs
+    else:
+        return None
+    
 
 def strip_debug_log(filepath):
     with open(filepath) as f:

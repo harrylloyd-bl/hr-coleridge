@@ -1,13 +1,40 @@
 import pytest
 import xml.etree.ElementTree as ET
 
-from coleridge.data.parse_xml import parse_attributes
+from coleridge.data.parse_xml import parse_attributes, extract_entities
+
 
 @pytest.fixture
 def root():
     tree = ET.parse("tests/test_parse_attributes.xml")
     root = tree.getroot()
     return root
+
+
+@pytest.fixture
+def entity_region_lines():
+    tree = ET.parse("tests/test_extract_entities.xml")
+    root = tree.getroot()
+    entities_region = root[1][2]
+    line_attributes = [parse_attributes(entities_region[1:-1], line_idx=i) for i, _ in enumerate(entities_region[1:-1])]
+    # breakpoint()
+    return line_attributes
+
+
+# @pytest.fixture
+# def scratch_root():
+#     tree = ET.parse("tests/scratch.xml")
+#     root = tree.getroot()
+#     return root
+
+
+# def test_scratch(scratch_root):
+#     scratch_region = scratch_root[1][1][1:-1]
+#     idx = 0
+#     assert parse_attributes(scratch_region, line_idx=idx) == {
+#         "person": {},
+#         "role": {}
+#     }
 
 
 def test_parse_attributes(root):
@@ -179,6 +206,27 @@ def test_extended_map_continue(root):
     }
 
 
+def test_rare_characters(root):
+    basic_region = root[1][1]
+    idx = 16
+    assert parse_attributes(basic_region, line_idx=idx) == {
+        "person": {
+            "firstname": "J.",
+            "title": "Esquire",
+            "dateOfDeath": "25/03/1869",
+            "lastname": "Mulheran'’-",
+            "text": "J. Mulheran, Esq.",
+            "leader": True
+        },
+        "role": {
+            "seniority": "2nd grade",
+            "title": "Deputy Superintendent",
+            "text": "Depy. Supdt., 2nd grade"
+        }
+    }
+
+
+
 def test_penultimate_textline_continue(root):
     basic_region = root[1][1]
     idx = len(basic_region) - 2
@@ -190,7 +238,54 @@ def test_penultimate_textline_continue(root):
     }
 
 
+
+
 def test_final_textline_continue(root):
     basic_region = root[1][1]
     idx = len(basic_region) - 1
     assert parse_attributes(basic_region, line_idx=idx) == {}
+
+
+def test_extract_one_person(entity_region_lines):
+    entity = extract_entities(entity_region_lines[0])
+    assert entity == {
+        "person": "James Mulheran, Esquire",
+        "firstname": "James",
+        "title": "Esquire",
+        "lastname": "Mulheran",
+        "leader": True,
+        "role_continued": "true",
+        "role_text": "Executive\nOfficer in charge",
+        "role_title": "Sub- Assistant",
+        "role_seniority": "1st Class"
+    }
+
+
+def test_extract_one_member(entity_region_lines):
+    entity = extract_entities(entity_region_lines[2])
+    assert entity == {
+        "person": "Mr. Andrew Chamarett",
+        "firstname": "Andrew",
+        "title": "Mr.",
+        "lastname": "Chamarett",
+        "leader": False,
+        "role_continued": "true",
+        "role_text": "2nd Civil\nAssistant",
+        "role_title": "Sub- Assistant",
+        "role_seniority": "1st Class"
+    }
+
+
+def test_no_entities(entity_region_lines):
+    entity = extract_entities(entity_region_lines[4])
+    assert entity is None
+
+
+def test_ethnicity(entity_region_lines):
+    entity = extract_entities(entity_region_lines[5])
+    assert entity == {
+        "person": "Ramchunder.",
+        "lastname": "Ramchunder",
+        "leader": False,
+        "ethnicity": "Native"
+    }
