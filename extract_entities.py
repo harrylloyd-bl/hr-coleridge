@@ -34,6 +34,13 @@ if __name__ == "__main__":
         multi_entities = []
 
         text_regions = [tr for tr in root.iter(f"{{{ns['page']}}}TextRegion")]
+
+        report_text = ""
+        for region in text_regions:
+            for line in region[1:-1]:
+                if line[2][0].text:
+                    report_text += line[2][0].text + " "
+
         for i, region in enumerate(text_regions):
             if i >= 2:
                 prev1_head = "{type:heading;}" in text_regions[i-1].attrib.get("custom", [])
@@ -105,6 +112,10 @@ if __name__ == "__main__":
                     line_attributes = parse_attributes(region=region[1:-1], line_idx=j)
                     line_entities = extract_entities(attribs=line_attributes, heading_attribs=heading_attribs)
                     if type(line_entities) is dict:
+                        if "lastname" in line_entities:
+                            line_entities["frequency"] = report_text.count(line_entities["lastname"])
+                        else:
+                            line_entities["frequency"] = report_text.count(line_entities["person"])
                         entities.append(line_entities)
                     elif type(line_entities) is list:
                         multi_entities.append(line_entities)
@@ -128,8 +139,8 @@ if __name__ == "__main__":
     combined_entities = pd.concat(entity_dfs)
     combined_entities_ordered = combined_entities[
         [
-            "title", "firstname", "lastname", "person", "report_date", "leader", "role", "seniority", "ethnicity", "ethnicity_text", "heading_survey_area", "heading_survey_party", "heading_places", "heading_place_names", "heading_place_wikidata_ids", "heading_place_countries", "season",
-            "military_branch_text", "organization_text", "organization_wikiData", "dateOfDeath", "medical_label_text", "medical_text", "dateOfDeath", "place_placeName",  "place_text", "place_wikiData", "role_title", "role_text", "role_seniority"
+            "title", "firstname", "lastname", "person", "report_date", "leader", "frequency", "role_title", "role_text", "role_seniority", "role", "seniority", "ethnicity", "ethnicity_text", "heading_survey_area", "heading_survey_party", "heading_places", "heading_place_names", "heading_place_wikidata_ids", "heading_place_countries", "season",
+            "military_branch_text", "organization_text", "organization_wikiData", "dateOfDeath", "medical_label_text", "medical_text", "dateOfDeath", "place_placeName",  "place_text", "place_wikiData", 
         ]
     ]
     # not in single entities: "survey_party", "survey_area"
