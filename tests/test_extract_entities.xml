@@ -1,0 +1,90 @@
+<ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+    <ns0:Metadata>
+        <ns0:Creator>prov=READ-COOP:name=PyLaia@TranskribusPlatform:version=2.30.2:model_id=39995:lm=none:date=27_08_2025_10:37</ns0:Creator>
+        <ns0:Created>2025-05-14T08:40:15.926+02:00</ns0:Created>
+        <ns0:LastChange>2025-08-28T15:32:36.184+02:00</ns0:LastChange>
+        <ns0:TranskribusMetadata docId="8473533" pageId="96872747" pageNr="1" tsid="254381456" status="IN_PROGRESS" userId="311446" imgUrl="https://files.transkribus.eu/Get?id=UPQZNZEIYMGOHUPEWBGGUNTA&amp;fileType=view" xmlUrl="https://files.transkribus.eu/Get?id=HOFVMBHFUBACLXDITHHBWNUI" imageId="81154982" />
+    </ns0:Metadata>
+    <ns0:Page imageFilename="0001_p001.jpg" imageWidth="2479" imageHeight="3508">
+        <ns0:ReadingOrder>
+            <ns0:OrderedGroup id="ro_1757512404909" caption="Regions reading order">
+                <ns0:RegionRefIndexed index="0" regionRef="r" />
+            </ns0:OrderedGroup>
+        </ns0:ReadingOrder>
+        <ns0:TextRegion id="r_1" custom="readingOrder {index:2;} structure {type:heading;}">
+            <ns0:Coords points="309,404 2166,404 2166,583 309,583" />
+            <ns0:TextLine id="r_1_tl_1" custom="readingOrder {index:0;} survey_party {offset:0; length:26;}">
+                <ns0:Coords points="854,459 1609,454 1609,404 1430,421 1166,402 943,432 906,404 854,413" />
+                <ns0:Baseline points="865,444 910,447 955,447 1000,444 1044,441 1089,441 1134,441 1179,444 1224,444 1268,444 1313,444 1358,444 1403,444 1447,444 1492,444 1537,444 1582,444 1615,447" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>No. 2.—TOPOGRAPHICAL PARTY.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_1_tl_2" custom="readingOrder {index:1;} survey_area {offset:0; length:15;} place {offset:0; length:8;placeName:HYDRABAD;}">
+                <ns0:Coords points="1053,533 1216,533 1258,518 1424,533 1424,489 1317,489 1291,476 1227,491 1053,480" />
+                <ns0:Baseline points="1065,516 1110,513 1155,516 1200,516 1244,516 1289,513 1334,516 1379,513 1424,519 1430,519" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>HYDRABAD SURVEY,</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_1_tl_3" custom="readingOrder {index:2;}">
+                <ns0:Coords points="1074,596 1391,596 1391,557 1369,546 1341,546 1321,566 1302,546 1127,559 1105,539 1074,559" />
+                <ns0:Baseline points="1086,585 1131,585 1176,582 1221,582 1265,582 1310,582 1355,582 1397,585" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Season 1862-63.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextEquiv>
+                <ns0:Unicode />
+            </ns0:TextEquiv>
+        </ns0:TextRegion>
+        <ns0:TextRegion id="r_4" custom="readingOrder {index:3;} structure {type:credit;}">
+            <ns0:Coords points="250,680 954,680 954,1617 250,1617" />
+            <ns0:TextLine id="r_2_tl_3" custom="readingOrder {index:0;} person {offset:0; length:23;firstname:James; title:Esquire; lastname:Mulheran;} leader {offset:0; length:14;} Role {offset:25; length:9; continued:true;title:Sub-\u0020Assistant; seniority:1st\u0020Class;}">
+                <ns0:Coords points="393,742 448,758 932,747 932,718 893,703 871,718 808,703 723,721 679,703 664,718 526,703 456,721 421,705 393,721" />
+                <ns0:Baseline points="406,740 450,740 495,737 540,737 585,737 629,737 674,740 719,740 764,737 809,740 853,737 898,740 937,740" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>James Mulheran, Esquire, Executive</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_5" custom="readingOrder {index:1;} Role {offset:0; length:17; continued:true;title:Sub-\u0020Assistant; seniority:1st\u0020Class;}">
+                <ns0:Coords points="367,788 555,786 585,799 603,788 620,791 620,751 535,747 450,758 367,738" />
+                <ns0:Baseline points="379,776 423,776 468,776 513,776 558,776 603,779 626,776" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Officer in charge.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_7" custom="readingOrder {index:2;} person {offset:0; length:20;firstname:Andrew; title:Mr.; lastname:Chamarett;} member {offset:0; length:20;} Role {offset:22; length:9; continued:true;title:Sub-\u0020Assistant; seniority:1st\u0020Class;}">
+                <ns0:Coords points="393,847 937,849 937,801 799,804 784,819 756,801 498,804 480,821 393,801" />
+                <ns0:Baseline points="406,838 450,838 495,841 540,841 585,841 629,841 674,841 719,841 764,838 809,841 853,838 898,838 940,841" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Mr. Andrew Chamarett, 2nd Civil</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_9" custom="readingOrder {index:3;} Role {offset:0; length:9; continued:true;title:Sub-\u0020Assistant; seniority:1st\u0020Class;}">
+                <ns0:Coords points="367,884 439,882 456,891 507,882 507,852 461,858 435,849 411,852 397,843 367,847" />
+                <ns0:Baseline points="379,877 420,874 465,874 510,874" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Assistant.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_23" custom="readingOrder {index:12;} Role {offset:0; length:16;title:NATIVE\u0020SURVEYORS;} ethnicity {offset:0; length:6;}">
+                <ns0:Coords points="487,1219 804,1221 804,1177 539,1179 513,1168 487,1179" />
+                <ns0:Baseline points="498,1209 540,1209 585,1206 629,1209 674,1209 719,1209 764,1209 809,1206" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>NATIVE SURVEYORS.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_25" custom="readingOrder {index:13;} person {offset:0; length:11;lastname:Ramchunder;} member {offset:0; length:10;} ethnicity {offset:0; length:10;}">
+                <ns0:Coords points="397,1271 478,1269 489,1275 528,1267 561,1277 598,1277 598,1240 570,1240 557,1227 526,1240 507,1240 494,1227 478,1240 452,1240 437,1238 421,1223 397,1225" />
+                <ns0:Baseline points="409,1256 453,1259 498,1259 543,1259 588,1262 603,1259" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Ramchunder.</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
+            <ns0:TextEquiv>
+                <ns0:Unicode />
+            </ns0:TextEquiv>
+        </ns0:TextRegion>
+    </ns0:Page>
+</ns0:PcGts>
