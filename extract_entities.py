@@ -26,12 +26,13 @@ if __name__ == "__main__":
 
     combined_pages = glob.glob("data/interim/*combined_pages.xml")
     entity_dfs = []
+    multi_entities = []
+
     for p in combined_pages:
         report_date = int(os.path.basename(p).split("_")[0])
         tree = ET.parse(p)
         root = tree.getroot()
         entities = []
-        multi_entities = []
 
         text_regions = [tr for tr in root.iter(f"{{{ns['page']}}}TextRegion")]
 
@@ -111,15 +112,12 @@ if __name__ == "__main__":
                 for j, line in enumerate(region[1:-1]):  # TODO add 'continued logic'
                     line_attributes = parse_attributes(region=region[1:-1], line_idx=j)
                     line_entities = extract_entities(attribs=line_attributes, heading_attribs=heading_attribs)
-                    if type(line_entities) is dict:
-                        if "lastname" in line_entities:
-                            line_entities["frequency"] = report_text.count(line_entities["lastname"])
+                    for e in line_entities:
+                        if "lastname" in e:
+                            e["frequency"] = report_text.count(e["lastname"])
                         else:
-                            line_entities["frequency"] = report_text.count(line_entities["person"])
-                        entities.append(line_entities)
-                    elif type(line_entities) is list:
-                        multi_entities.append(line_entities)
-
+                            e["frequency"] = report_text.count(e["person"])
+                        entities.append(e)
 
             elif "{type:credit;}" in region.attrib.get("custom", []):
                 print(f"Skipping credit {credit_child} as not immediately succeeding a heading tag")
