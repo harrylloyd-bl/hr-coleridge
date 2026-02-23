@@ -82,6 +82,13 @@
                     <ns0:Unicode>Ramchunder.</ns0:Unicode>
                 </ns0:TextEquiv>
             </ns0:TextLine>
+            <ns0:TextLine id="r_2_tl_21" custom="readingOrder {index:20;} person {offset:0; length:13;firstname:Joala; lastname:Pershad;} ethnicity {offset:0; length:13;} person {offset:15; length:17;firstname:Abdool\u0020Samud; lastname:Khan;} ethnicity {offset:15; length:17;} person {offset:34; length:13;firstname:Golam; lastname:Mahomed;} ethnicity {offset:34; length:13;} person {offset:49; length:9;lastname:Chooramun;} ethnicity {offset:49; length:9;}">
+                <ns0:Coords points="376,2904 1371,2908 1344,2861 376,2872" />
+                <ns0:Baseline points="388,2892 432,2892 477,2892 522,2889 567,2892 612,2892 656,2892 701,2889 746,2889 791,2889 835,2892 880,2892 925,2889 970,2892 1015,2892 1059,2892 1104,2892 1149,2895 1194,2895 1238,2895 1283,2895 1328,2895 1373,2895 1376,2895" />
+                <ns0:TextEquiv>
+                    <ns0:Unicode>Joala Pershad, Abdool Samud Khan, Golam Mahomed, Chooramun,</ns0:Unicode>
+                </ns0:TextEquiv>
+            </ns0:TextLine>
             <ns0:TextEquiv>
                 <ns0:Unicode />
             </ns0:TextEquiv>

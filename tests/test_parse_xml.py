@@ -238,8 +238,6 @@ def test_penultimate_textline_continue(root):
     }
 
 
-
-
 def test_final_textline_continue(root):
     basic_region = root[1][1]
     idx = len(basic_region) - 1
@@ -248,7 +246,7 @@ def test_final_textline_continue(root):
 
 def test_extract_one_person(entity_region_lines):
     entity = extract_entities(entity_region_lines[0])
-    assert entity == {
+    assert entity[0] == {
         "person": "James Mulheran, Esquire",
         "firstname": "James",
         "title": "Esquire",
@@ -263,7 +261,7 @@ def test_extract_one_person(entity_region_lines):
 
 def test_extract_one_member(entity_region_lines):
     entity = extract_entities(entity_region_lines[2])
-    assert entity == {
+    assert entity[0] == {
         "person": "Mr. Andrew Chamarett",
         "firstname": "Andrew",
         "title": "Mr.",
@@ -278,14 +276,49 @@ def test_extract_one_member(entity_region_lines):
 
 def test_no_entities(entity_region_lines):
     entity = extract_entities(entity_region_lines[4])
-    assert entity is None
+    assert type(entity) == type([])
+    assert len(entity) == 0
 
 
 def test_ethnicity(entity_region_lines):
     entity = extract_entities(entity_region_lines[5])
-    assert entity == {
+    assert entity[0] == {
         "person": "Ramchunder.",
         "lastname": "Ramchunder",
+        "leader": False,
+        "ethnicity": "Native"
+    }
+
+
+def test_multiple_ethnicity(entity_region_lines):
+    entity = extract_entities(entity_region_lines[6])
+    assert entity[0] == {
+        "person": "Joala Pershad",
+        "firstname": "Joala",
+        "lastname": "Pershad",
+        "leader": False,
+        "ethnicity": "Native"
+    }
+
+    assert entity[1] == {
+        "person": "Abdool Samud Khan",
+        "firstname": "Abdool Samud",
+        "lastname": "Khan",
+        "leader": False,
+        "ethnicity": "Native"
+    }
+
+    assert entity[2] == {
+        "person": "Golam Mahomed",
+        "firstname": "Golam",
+        "lastname": "Mahomed",
+        "leader": False,
+        "ethnicity": "Native"
+    }
+
+    assert entity[3] == {
+        "person": "Chooramun",
+        "lastname": "Chooramun",
         "leader": False,
         "ethnicity": "Native"
     }

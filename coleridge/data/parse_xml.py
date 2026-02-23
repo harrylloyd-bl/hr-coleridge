@@ -306,6 +306,7 @@ def extract_entities(attribs, heading_attribs=dict()):
     single_attrs = [a for a in attribs if de_dupe(a) == a]
     multi_attrs = [a for a in attribs if de_dupe(a) != a]
     de_dupe_multi = [de_dupe(a) for a in multi_attrs]
+    # breakpoint()
     if any(x in single_attrs for x in ["person", "member"]):
         if "person" in single_attrs:
             entity = {"person": attribs["person"].pop("text")}
@@ -334,12 +335,31 @@ def extract_entities(attribs, heading_attribs=dict()):
                 for k, v in attribs[attr].items():
                     entity[f"{attr.lower()}_{k}"] = v
         
+        if "leader" not in entity:
+            entity["leader"] = False
+            
         entity |= heading_attribs
-        return entity
-    elif any(x in de_dupe_multi for x in ["person", "member", "leader"]):
-        return multi_attrs
+        return list([entity])
+    elif any(x in de_dupe_multi for x in ["person", "member"]):
+        entities = list()
+        for dd, attr in zip(de_dupe_multi, multi_attrs):
+            if dd == "person":
+                entity = {"person": attribs[attr].pop("text")}
+                entity |= attribs[attr]
+                if "leader" not in entity:
+                    entity["leader"] = False
+                entity |= heading_attribs
+                entities.append(entity)
+            elif dd == "member":  # this is never the case as of 76a90c8
+                breakpoint()
+                entity = {"person": attribs[attr].pop("text")}
+                entity |= attribs[attr]
+                entity["leader"] = False
+                entity |= heading_attribs
+                entities.append(entity)
+        return entities
     else:
-        return None
+        return list()
     
 
 def strip_debug_log(filepath):
