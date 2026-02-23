@@ -33,6 +33,13 @@ if __name__ == "__main__":
         root = tree.getroot()
 
         text_regions = [region for region in root.iter(f"{{{ns['page']}}}TextRegion")]
+
+        report_text = ""
+        for region in text_regions:
+            for line in region[1:-1]:
+                if line[2][0].text:
+                    report_text += line[2][0].text + " "
+
         report_maps = []
         for i, region in enumerate(text_regions):
             region_attributes = parse_attributes(region=region)
@@ -81,16 +88,17 @@ if __name__ == "__main__":
                         map["heading_survey_area"] = heading_survey_area.strip(",")
                         map["heading_survey_party"] = heading_survey_party.strip('"')
                         map["structure"] = structure
+                        map["text_lb"] = map["text"]
+                        map["text"] = map["text"].replace("\n", " ")
+                        map["frequency"] = report_text.count(map["text"])
                         report_maps.append(map)           
 
         maps.extend(report_maps)
     maps_df = pd.DataFrame(maps)
-    maps_df.rename(columns={"text":"text_lb"}, inplace=True)
-    maps_df["text"] = maps_df["text_lb"].str.replace("\n", " ")
     ordered_maps_df = maps_df[
         [
-            "heading_survey_area","heading_survey_party","report_date", "title","scale",
-            "text","text_lb", "structure","placeName", "continued"
+            "heading_survey_area","heading_survey_party","report_date", "title", "scale",
+            "text", "text_lb", "frequency", "structure","placeName", "continued"
         ]
     ]
     ordered_maps_df.to_csv("data/processed/report_maps.csv", encoding="utf-8-sig")
