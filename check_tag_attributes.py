@@ -24,7 +24,7 @@ if __name__ == "__main__":
             text_regions = [tr for tr in root.iter(f"{{{ns['page']}}}TextRegion")]
             for i, region in enumerate(text_regions):
                 for line in region[1:-1]:
-                    line_tags = parse_custom_attribute_string(line)
+                    line_tags = parse_custom_attribute_string(line, normalise_role=True)
                     if line_tags:
                         tags.extend([t[0] for t in line_tags])
 
@@ -73,6 +73,7 @@ if __name__ == "__main__":
             "remuneration": [],
             "medical_label": [],
             "ethnic_label": [],
+            "structure": []
         }
 
         for p in combined_pages:
@@ -82,7 +83,7 @@ if __name__ == "__main__":
             for i, region in enumerate(text_regions):
 
                 for line in region[1:-1]:
-                    line_tags = parse_custom_attribute_string(line)
+                    line_tags = parse_custom_attribute_string(line, normalise_role=True)
                     if line_tags:
                         [tag_attributes[tag].extend([a[0] for a in attrs]) for (tag, attrs) in line_tags]
         

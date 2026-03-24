@@ -4,7 +4,7 @@ import re
 from xml.etree.ElementTree import Element
 
 
-def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str, str]]]:
+def parse_custom_attribute_string(element: Element, normalise_role: bool = True) -> list[tuple[str, tuple[str, str]]]:
     """
     Parse the custom attributes of an XML element
     Convert the custom string into a list of (Transkribus) tags and tag values
@@ -18,8 +18,10 @@ def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str
     attributes_raw = element.attrib.get("custom")
     # Handle misformatted Unicode, U+0020 (space), U+0027 (apostrophe)
     attributes = attributes_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
-    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’-]+\})")
-    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’-]+)")
+    if " Role " in attributes and normalise_role:  # There are upper and lower cased R/role tags
+        attributes = attributes.replace(" Role ", " role ")
+    attrib_pair_re = re.compile(r"(?P<tag>\w+) (?P<text>\{[\.\w\s:;\d\\'’\-/]+\})")
+    attrib_inner_re = re.compile(r"(?P<tag>\w+):(?P<text>[\.\w\s\d\\'’\-/]+)")
     all_attribs = attrib_pair_re.findall(attributes)
 
     inner_found = [(k, attrib_inner_re.findall(v[1:-1])) for k,v in all_attribs]
@@ -27,7 +29,7 @@ def parse_custom_attribute_string(element: Element) -> list[tuple[str, tuple[str
     return inner_found
 
 
-def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[str, str]|list[dict[str, str]]]:
+def parse_attributes(region: Element, line_idx: int = None, normalise_role: bool = True) -> dict[str, dict[str, str]|list[dict[str, str]]]:
     """
     Parse a string of attributes from an xml
 
@@ -47,11 +49,11 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
     element = region[line_idx]
 
     if "Coord" in element.tag or "TextEquiv" in element.tag:
-        raise ValueError(f"Only TextLines should be passed to parse_attributes, f{element.tag.split("}")[1]} was passed")
+        raise ValueError(f"Only TextLines should be passed to parse_attributes, {element.tag.split("}")[1]} was passed")
     elif element[2][0].text is None:
         return dict()  # No text
     
-    inner_found = parse_custom_attribute_string(element)
+    inner_found = parse_custom_attribute_string(element, normalise_role=normalise_role)
     
     formatted_attributes = {}
     counts = Counter([x[0] for x in inner_found])  # TODO implement checking for multiple attrs in one line
@@ -76,7 +78,7 @@ def parse_attributes(region: Element, line_idx: int = None) -> dict[str, dict[st
             grouped_sets[slice(min(span1), max(span1))].extend([tag1, tag2])
 
     grouped_sets = {k:list(set(v)) for k,v in grouped_sets.items() if v}
-    grouping_tags = ["medical", "acknowledgement", "criticism", "role", "Role"]
+    grouping_tags = ["medical", "acknowledgement", "criticism", "role"]
 
     for gs in grouped_sets.values():
         de_duped = {de_dupe(tag):tag for tag in gs}  # this won't work for overlaps with multiple of the same tag
@@ -172,7 +174,7 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
     # we won't be able to separate them
 
     elif "continued" in attr_dict:
-        
+
         if line_idx + 1 == len(region):
             # Last line in a region, this is continued line that has been collected earlier
             return None
@@ -191,6 +193,8 @@ def gather_attribute_text(region: Element, line_idx: int, attr: str, attr_dict: 
             prev_line_attrs = prev_line_attrs_raw.replace(r"\u0020", " ").replace(r"\u0027", "'")
             
             common_overlap_keys = ["continued", "scale", "member", "leader", "ethnicity"]  # tag attributes that are likely to be the same as the prev line by chance
+            if attr == "role":
+                common_overlap_keys += ["title", "seniority"]
             # breakpoint()
             if any(v in prev_line_attrs for k, v in attr_dict.items() if k not in common_overlap_keys):
                 # Attrs in this line appear verbatim in the last line, so is continued
@@ -287,6 +291,76 @@ def de_dupe(s: str) -> str:
     except ValueError:
         return s
 
+
+def extract_entities(attribs, heading_attribs=dict()):
+    """
+    Extract person entities from a list of tags derived from line attributes
+
+    Args:
+        attribs (dict): A dictionary of tags and tag values
+        heading_attribs (dict, optional): A dictionary of tags extracted from the heading region associated with the line attribs came from. Defaults to dict().
+
+    Returns:
+        dict|list: Either a dictionary corresponding to an entity, or a list of multiple entity tags that occur on a line
+    """
+    single_attrs = [a for a in attribs if de_dupe(a) == a]
+    multi_attrs = [a for a in attribs if de_dupe(a) != a]
+    de_dupe_multi = [de_dupe(a) for a in multi_attrs]
+    # breakpoint()
+    if any(x in single_attrs for x in ["person", "member"]):
+        if "person" in single_attrs:
+            entity = {"person": attribs["person"].pop("text")}
+            entity |= attribs["person"]
+            single_attrs.remove("person")
+        elif "member" in single_attrs:
+            entity = {"person": attribs["member"]["text"]}
+            entity["leader"] = False
+            single_attrs.remove("member")
+        # There are no valid leader entities with just a leader tag
+        # elif "leader" in single_attrs:
+        #     entity = {"person": attribs["leader"]["text"]}
+        #     entity["leader"] = "leader_only"
+        #     single_attrs.remove("leader")
+
+        # breakpoint()
+        for attr in single_attrs:
+            if attr == "ethnicity" or attr == "ethnicity_group":
+                entity["ethnicity"] = "Native"
+                entity[f"{attr}_text"] = attribs[attr]["text"]
+            elif attr == "member":
+                entity["leader"] = False
+            elif attr == "leader":
+                entity["leader"] = True
+            else:
+                for k, v in attribs[attr].items():
+                    entity[f"{attr.lower()}_{k}"] = v
+        
+        if "leader" not in entity:
+            entity["leader"] = False
+            
+        entity |= heading_attribs
+        return list([entity])
+    elif any(x in de_dupe_multi for x in ["person", "member"]):
+        entities = list()
+        for dd, attr in zip(de_dupe_multi, multi_attrs):
+            if dd == "person":
+                entity = {"person": attribs[attr].pop("text")}
+                entity |= attribs[attr]
+                if "leader" not in entity:
+                    entity["leader"] = False
+                entity |= heading_attribs
+                entities.append(entity)
+            elif dd == "member":  # this is never the case as of 76a90c8
+                breakpoint()
+                entity = {"person": attribs[attr].pop("text")}
+                entity |= attribs[attr]
+                entity["leader"] = False
+                entity |= heading_attribs
+                entities.append(entity)
+        return entities
+    else:
+        return list()
+    
 
 def strip_debug_log(filepath):
     with open(filepath) as f:
